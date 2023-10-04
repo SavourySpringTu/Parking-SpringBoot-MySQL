@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<style>
+		.form_input1 {
+			position: absolute ;
+			transform: translate(-50%);
+			left: 50%;
+			top: 200px;
+		}
+		.form_button {
+			position: absolute ;
+			left : 1400px ;
+			top : 200px ;
+		}
+		#delete{
+			background-color: #ff3774
+		}
+		label{
+			color: white;
+		}
+		button {
+			background-color: #04AA6D;
+			color: white;
+			width : 150px;
+			height: 50px;
+			border: none;
+			cursor: pointer;
+		}
+		th {
+			border-bottom: 1px solid #364043;
+			color: #012B39;
+			font-size: 0.85em;
+			font-weight: 600;
+			padding: 0.5em 1em;
+			text-align: center;
+		}
+		td {
+			color: #fff;
+			font-weight: 400;
+			padding: 0.65em 1em;
+			padding: 15px;
+		}
+		table{
+			position: absolute ;
+			background: #012B39;
+			border-radius: 0.25em;
+			border-collapse: collapse;
+			text-align: center;
+			font-size: 16px;
+			transform: translate(-50%);
+			left: 50%;
+			top: 520px;
+			width: 800px;
+		}
+		.active{
+			width: 150px;
+			text-align: center;
+		}
+		input{
+			boder-radius:50px;
+		}
+		.table-header {
+			background-color: #95A5A6;
+		}
+		.href{
+			position: relative;
+			left: 1000px;
+		}
+		#color_background{
+			position: absolute;
+			background-color: #155263;
+			opacity: 0.5;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+			height: 100%;
+		}
+		input {
+			padding: 8px 16px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+			border-radius: 6px;
+		}
+		img{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+			height: 100%;
+		}
+		button {
+			background-color: #012B39;
+			color: white;
+			width : 150px;
+			height: 50px;
+			border-radius: 6px;
+			border: none;
+			cursor: pointer;
+		}
+		#mes {
+			position: absolute ;
+			color: red;
+			bottom: 5px;
+			font-size: 20px;
+			transform: translate(-50%);
+			left: 50%;
+		}
+		.search{
+			position: absolute;
+			width: 250px;
+			height: 50px;
+			top: 475px;
+			left: 1120px;
+		}
+		.input_search {
+			position: static;
+			padding: 6px 10px;
+			font-size: 12px;
+			border: none;
+			cursor: pointer;
+		}
+		.btn_search{
+			position: static;
+			width: 70px;
+			height: 40px;
+		}
+		.pagination{
+			position: absolute;
+			left: 560px;
+			top: 800px;
+		}
+		.background_table{
+			position: absolute;
+			background: #012B39;
+			width: 800px;
+			height: 300px;
+			top:520px;
+			left:560px;
+			border-radius: 0.25em;
+		}
+	</style>
+
+</head> 
+  
+<body>
+	<img th:src="@{/images/position.jpg}"/>
+	<div id="color_background"></div>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">Parking</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a >POSITION</a></li>
+				<li><a class="href" href="admin">Employee</a></li>
+				<li><a class="href" href="ticket">Ticket</a></li>
+				<li><a class="href" href="customer">Customer</a></li>
+				<li><a class="href" href="role">Role</a></li>
+				<li><a class="href" href="position">Position</a></li>
+				<li><a class="href" href="warehouse">Warehouse</a></li>
+				<li><a class="href" href="revenue">Revenue</a></li>
+				<li><a class="href" href="login">Log out</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<form class ="form_input" action="position" method="post">
+		<div  class ="form_input1" >
+			<label>Id</label><br> 
+			<input type="text" name="ip_id" ><br><br>
+		</div>
+		<div class="form_button" >
+			<button name ="btn_add_position" type = "submit">ADD</button><br><br>
+			<button id="delete" name ="btn_delete_position" type = "submit">DELETE</button><br><br>
+		</div>
+		<div class="search">
+			<input class="input_search" type="text" placeholder="Search.." name="search_position">
+			<button class="btn_search" name ="btn_search_position" type = "submit">Search</button>
+		</div>
+	</form>
+
+	<div class="background_table"></div>
+
+	<table>
+		<tr class="table-header">
+		  <th>Id</th>
+		  <th>Status</th>
+	 	</tr>
+		<tr th:each = "position : ${positions} ">
+			<td th:text = " ${position.id}"></td>
+			<td th:text = " ${position.status}"></td>
+		</tr>
+	</table>
+	<nav aria-label="Page navigation example">
+		<ul class="pagination">
+			<li><a th:href="@{'position?p='+${p-1}}">Back</a></li>
+			<li><a th:href="@{'position?p='+${p+1}}">Next</a></li>
+		</ul>
+	</nav>
+	<a id ="mes" th:text="${mes}">abc</a>
+</body>
+</html>

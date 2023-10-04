@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            overflow-y: hidden;
+            margin: 0px;
+            padding: 0px;
+            width: 100vw;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .form_button {
+            position: absolute ;
+            left : 1400px ;
+            top : 280px ;
+        }
+        .input1{
+            position: absolute;
+            top: 200px;
+            transform: translate(-50%);
+            left: 50%;
+        }
+        label{
+            color: white;
+        }
+        #export{
+            background-color: #ff3774
+        }
+        .table-header {
+            background-color: #95A5A6;
+        }
+        button {
+            background-color: #012B39;
+            color: white;
+            width : 150px;
+            height: 50px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+        .table-header {
+            background-color: #95A5A6;
+        }
+        th {
+            border-bottom: 1px solid #364043;
+            color: #012B39;
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 0.5em 1em;
+            text-align: center;
+        }
+        td {
+            color: #fff;
+            font-weight: 400;
+            padding: 0.65em 1em;
+            padding: 15px;
+        }
+        .href{
+            position: relative;
+            left: 1300px;
+        }
+        #color_background{
+            position: absolute;
+            background-color: #155263;
+            opacity: 0.5;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            width: 100%;
+            height: 100%;
+        }
+        img{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            width: 100%;
+            height: 115%;
+        }
+        table{
+            position: absolute ;
+            background: #012B39;
+            border-radius: 0.25em;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 16px;
+            transform: translate(-50%);
+            left: 50%;
+            top: 520px;
+            width: 800px;
+        }
+        input {
+            padding: 8px 16px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+        select {
+            padding: 6px 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+        #mes {
+            position: absolute ;
+            color: red;
+            bottom: 5px;
+            font-size: 20px;
+            transform: translate(-50%);
+            left: 50%;
+        }
+        .search{
+            position: absolute;
+            width: 250px;
+            height: 50px;
+            top: 475px;
+            left: 1120px;
+        }
+        .input_search {
+            position: static;
+            padding: 6px 10px;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn_search{
+            position: static;
+            width: 70px;
+            height: 40px;
+        }
+        .active{
+            width: 150px;
+            text-align: center;
+        }
+        .pagination{
+            position: absolute;
+            left: 560px;
+            top: 800px;
+        }
+        .background_table{
+            position: absolute;
+            background: #012B39;
+            width: 800px;
+            height: 300px;
+            top:520px;
+            left:560px;
+            border-radius: 0.25em;
+        }
+    </style>
+
+</head>
+
+<body>
+<img th:src="@{/images/warehouse.jpg}"/>
+<div id="color_background"></div>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Parking</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a >PTIT</a></li>
+            <li><a class="href" href="about">About</a></li>
+            <li><a class="href" href="login_user">Log out</a></li>
+            <li ><a class="href"  th:text="${email}"></a></li>
+        </ul>
+    </div>
+</nav>
+
+<form class ="form_input" action="user" method="post">
+    <div  class ="input1" >
+        <label>Ticket</label><br>
+        <input type="text" name="ip_ticket"><br><br>
+        <label>Number</label><br>
+        <input type="number" name="ip_number"><br><br>
+    </div>
+    <div class="form_button" >
+        <button id="export" name ="btn_confirm_warehouse" type = "submit">CONFIRM</button><br>
+    </div>
+    <div class="search">
+        <input class="input_search" type="text" placeholder="Search.." name="search_warehouse">
+        <button class="btn_search" name ="btn_search_warehouse" type = "submit">Search</button>
+    </div>
+</form>
+
+<div class="background_table"></div>
+
+<table>
+    <tr class ="table-header" >
+        <th>Ticket</th>
+        <th>Date </th>
+        <th>Type </th>
+        <th>Number </th>
+        <th>Price </th>
+        <th>Status </th>
+    </tr>
+    <tr th:each = "ticket : ${tickets} ">
+        <td th:text = " ${ticket.id}"></td>
+        <td th:text = " ${ticket.time}"></td>
+        <td th:text = " ${ticket.ticket_type}"></td>
+        <td th:text = " ${ticket.number_car}"></td>
+        <td th:text = " ${ticket.price}"></td>
+        <td th:text = " ${ticket.status}"></td>
+    </tr>
+</table>
+<a id ="mes" th:text="${mes}">abc</a>
+</body>
+</html>
